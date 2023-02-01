@@ -5,7 +5,7 @@ export const validId = (req, res, next) => {
   try {
     const { id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ error: "Invalid ID" });
+      return res.status(400).json({ message: "Invalid ID" });
     }
     next();
   } catch (error) {
@@ -18,7 +18,7 @@ export const validUser = async (req, res, next) => {
     const { id } = req.params;
     const user = await userService.findByIdService(id);
     if (!user) {
-      return res.status(404).json({ error: "user not found" });
+      return res.status(404).json({ message: "user not found" });
     }
     req.id = id;
     req.user = user;
@@ -34,7 +34,7 @@ export const duplicateEmail = async (req, res, next) => {
       req.body.email
     );
     if (emailIsDuplicate) {
-      return res.status(400).json({ error: "email already exists" });
+      return res.status(400).json({ message: "email already exists" });
     }
     next();
   } catch (error) {
