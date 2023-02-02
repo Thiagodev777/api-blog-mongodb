@@ -57,7 +57,15 @@ const userController = {
           .status(400)
           .json({ error: "Submit at least one field for update" });
       }
-      await userService.updateService({ id, ...req.body });
+      await userService.updateService(
+        id,
+        name,
+        username,
+        email,
+        password,
+        avatar,
+        background
+      );
       res.json({ message: "User sucessfully update!" });
     } catch (error) {
       return res.status(500).json({ message: error.message });

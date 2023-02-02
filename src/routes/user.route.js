@@ -14,9 +14,9 @@ router.get("/:id", validId, validUser, userController.findById);
 router.post("/", validEmail, duplicateEmail, userController.create);
 router.patch(
   "/:id",
-  validEmail,
   validId,
   validUser,
+  validEmail,
   duplicateEmail,
   userController.update
 );

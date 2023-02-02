@@ -46,8 +46,10 @@ export const duplicateEmail = async (req, res, next) => {
 export const validEmail = async (req, res, next) => {
   try {
     const { email } = req.body;
-    if (!validator.isEmail(email)) {
-      return res.status(400).json({ message: "invalid email" });
+    if (email) {
+      if (!validator.isEmail(email)) {
+        return res.status(400).json({ message: "invalid email" });
+      }
     }
     next();
   } catch (error) {
