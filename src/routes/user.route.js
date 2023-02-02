@@ -6,11 +6,19 @@ import {
   validId,
   validUser,
   duplicateEmail,
+  validEmail,
 } from "../middlewares/global.middleware.js";
 
 router.get("/", userController.findAll);
 router.get("/:id", validId, validUser, userController.findById);
-router.post("/", duplicateEmail, userController.create);
-router.patch("/:id", validId, validUser, duplicateEmail, userController.update);
+router.post("/", validEmail, duplicateEmail, userController.create);
+router.patch(
+  "/:id",
+  validEmail,
+  validId,
+  validUser,
+  duplicateEmail,
+  userController.update
+);
 
 export default router;

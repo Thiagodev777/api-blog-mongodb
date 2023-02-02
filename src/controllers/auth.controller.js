@@ -17,7 +17,7 @@ const authController = {
           .status(401)
           .json({ message: "email or password are invalid" });
       }
-      return res.json({ message: "token" });
+      return res.json({ token: await authService.generateToken(user.id) });
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }

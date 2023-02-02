@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import userService from "../services/user.service.js";
+import validator from "validator";
 
 export const validId = (req, res, next) => {
   try {
@@ -35,6 +36,18 @@ export const duplicateEmail = async (req, res, next) => {
     );
     if (emailIsDuplicate) {
       return res.status(400).json({ message: "email already exists" });
+    }
+    next();
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export const validEmail = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    if (!validator.isEmail(email)) {
+      return res.status(400).json({ message: "invalid email" });
     }
     next();
   } catch (error) {
