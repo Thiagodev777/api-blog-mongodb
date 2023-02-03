@@ -14,7 +14,7 @@ const newsController = {
         title,
         text,
         banner,
-        user: { _id: "63dc952998b43b0af005af92" },
+        user: req.userId,
       });
       res.json({ message: "ok" });
     } catch (error) {
