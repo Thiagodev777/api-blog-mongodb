@@ -172,14 +172,27 @@ const newsController = {
       if (!title && !banner && !text) {
         return res
           .status(400)
-          .json({ message: "Submit at least one field to update the post" });
+          .json({ message: "Submit at least one field to update the news" });
       }
       const news = await newsService.findByIdService(id);
       if (news.user._id != req.userId) {
         return res.status(400).json({ message: "You didn't update this post" });
       }
       await newsService.updateService(id, title, text, banner);
-      return res.json({ message: "Post successfully update" });
+      return res.json({ message: "News successfully update" });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  },
+  delete: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const news = await newsService.findByIdService(id);
+      if (news.user._id != req.userId) {
+        return res.status(400).json({ message: "You didn't delete this post" });
+      }
+      await newsService.deleteService(id);
+      return res.json({ message: "News delete successfully" });
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }

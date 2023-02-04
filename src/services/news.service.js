@@ -25,6 +25,7 @@ const newsService = {
       { title, text, banner },
       { rawResult: true }
     ),
+  deleteService: (id) => News.findOneAndDelete({ _id: id }),
 };
 
 export default newsService;
