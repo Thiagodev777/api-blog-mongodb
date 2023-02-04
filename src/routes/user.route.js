@@ -1,13 +1,12 @@
 import { Router } from "express";
 const router = Router();
 import userController from "../controllers/user.controller.js";
-
+import { validId } from "../middlewares/global.middleware.js";
 import {
-  validId,
   validUser,
-  duplicateEmail,
   validEmail,
-} from "../middlewares/global.middleware.js";
+  duplicateEmail,
+} from "../middlewares/user.middleware.js";
 
 router.get("/", userController.findAll);
 router.get("/:id", validId, validUser, userController.findById);
