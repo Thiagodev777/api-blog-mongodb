@@ -118,6 +118,32 @@ const newsController = {
       return res.status(500).json({ message: error.message });
     }
   },
+  searchByTitle: async (req, res) => {
+    try {
+      const { title } = req.query;
+      const news = await newsService.searchByTitleService(title);
+      if (news.length === 0) {
+        return res
+          .status(400)
+          .json({ message: "There are no news with this title" });
+      }
+      return res.json({
+        results: news.map((newsItem) => ({
+          id: newsItem._id,
+          title: newsItem.title,
+          text: newsItem.text,
+          banner: newsItem.banner,
+          likes: newsItem.likes,
+          comments: newsItem.comments,
+          name: newsItem.user.name,
+          username: newsItem.user.username,
+          userAvatar: newsItem.user.avatar,
+        })),
+      });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  },
 };
 
 export default newsController;
