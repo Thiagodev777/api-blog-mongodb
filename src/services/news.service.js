@@ -13,6 +13,12 @@ const newsService = {
     })
       .sort({ _id: -1 })
       .populate("user"),
+  byUserService: (id) =>
+    News.find({
+      user: id,
+    })
+      .sort({ _id: -1 })
+      .populate("user"),
 };
 
 export default newsService;
