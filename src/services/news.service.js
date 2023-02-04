@@ -26,6 +26,13 @@ const newsService = {
       { rawResult: true }
     ),
   deleteService: (id) => News.findOneAndDelete({ _id: id }),
+  likeNewsService: (idNews, userId) =>
+    News.findOneAndUpdate(
+      { _id: idNews, "likes.userId": { $nin: [userId] } },
+      { $push: { likes: { userId, created: new Date() } } }
+    ),
+  deleteLikeNewsService: async (idNews, userId) =>
+    News.findOneAndUpdate({ _id: idNews }, { $pull: { likes: { userId } } }),
 };
 
 export default newsService;

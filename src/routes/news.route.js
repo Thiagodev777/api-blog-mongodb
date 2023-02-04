@@ -19,4 +19,6 @@ router.delete(
   validNews,
   newsController.delete
 );
+router.patch("/like/:id", authMiddleware, newsController.likeNews);
+
 export default router;

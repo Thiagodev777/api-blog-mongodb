@@ -197,6 +197,20 @@ const newsController = {
       return res.status(500).json({ message: error.message });
     }
   },
+  likeNews: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const userId = req.userId;
+      const newsLiked = await newsService.likeNewsService(id, userId);
+      if (!newsLiked) {
+        await newsService.deleteLikeNewsService(id, userId);
+        return res.status(200).json({ message: "Like successfully removed" });
+      }
+      return res.json({ message: "Like done successfully" });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  },
 };
 
 export default newsController;
