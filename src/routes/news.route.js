@@ -11,4 +11,5 @@ router.get("/top", newsController.topNews);
 router.get("/search", newsController.searchByTitle);
 router.get("/byUser", authMiddleware, newsController.byUser);
 router.get("/:id", authMiddleware, validId, validNews, newsController.findById);
+router.patch("/:id", authMiddleware, newsController.update);
 export default router;

@@ -165,6 +165,25 @@ const newsController = {
       return res.status(500).json({ message: error.message });
     }
   },
+  update: async (req, res) => {
+    try {
+      const { title, text, banner } = req.body;
+      const { id } = req.params;
+      if (!title && !banner && !text) {
+        return res
+          .status(400)
+          .json({ message: "Submit at least one field to update the post" });
+      }
+      const news = await newsService.findByIdService(id);
+      if (news.user._id != req.userId) {
+        return res.status(400).json({ message: "You didn't update this post" });
+      }
+      await newsService.updateService(id, title, text, banner);
+      return res.json({ message: "Post successfully update" });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  },
 };
 
 export default newsController;

@@ -19,6 +19,12 @@ const newsService = {
     })
       .sort({ _id: -1 })
       .populate("user"),
+  updateService: (id, title, text, banner) =>
+    News.findOneAndUpdate(
+      { _id: id },
+      { title, text, banner },
+      { rawResult: true }
+    ),
 };
 
 export default newsService;
