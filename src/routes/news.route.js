@@ -20,5 +20,10 @@ router.delete(
   newsController.delete
 );
 router.patch("/like/:id", authMiddleware, newsController.likeNews);
-
+router.patch("/comment/:id", authMiddleware, newsController.addComment);
+router.patch(
+  "/comment/:idNews/:idComment",
+  authMiddleware,
+  newsController.deleteComment
+);
 export default router;

@@ -211,6 +211,53 @@ const newsController = {
       return res.status(500).json({ message: error.message });
     }
   },
+  addComment: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const userId = req.userId;
+      const { comment } = req.body;
+
+      if (!comment) {
+        return res.status(400).json({ message: "Write a message to comment" });
+      }
+
+      await newsService.addCommentService(id, comment, userId);
+
+      res.json({ message: "Comment successfuly completed" });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  },
+  deleteComment: async (req, res) => {
+    try {
+      const { idNews, idComment } = req.params;
+      const userId = req.userId;
+
+      const commentDeleted = await newsService.deleteCommentService(
+        idNews,
+        idComment,
+        userId
+      );
+
+      const commentFind = commentDeleted.comment.find(
+        (comment) => comment.idComment === idComment
+      );
+
+      if (!commentFind) {
+        return res.status(404).json({ message: "Comment not found" });
+      }
+
+      if (commentFind.userId !== userId) {
+        return res
+          .status(400)
+          .json({ message: "You can't delete this comment" });
+      }
+
+      res.json({ message: "Comment successfuly removed" });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  },
 };
 
 export default newsController;
