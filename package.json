@@ -5,7 +5,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "start": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -20,9 +20,7 @@
     "swagger-ui-express": "^4.6.0",
     "uuid": "^9.0.0",
     "validator": "^13.7.0",
-    "yarn": "^1.22.19"
-  },
-  "devDependencies": {
+    "yarn": "^1.22.19",
     "nodemon": "^2.0.20"
   }
 }
