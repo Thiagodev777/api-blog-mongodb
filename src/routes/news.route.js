@@ -8,7 +8,7 @@ import { validNews } from "../middlewares/news.middleware.js";
 router.post("/", authMiddleware, newsController.create);
 router.get("/", newsController.getAll);
 router.get("/top", newsController.topNews);
-router.get("/search", newsController.searchByTitle);
+router.get("/search", authMiddleware, newsController.searchByTitle);
 router.get("/byUser", authMiddleware, newsController.byUser);
 router.get("/:id", authMiddleware, validId, validNews, newsController.findById);
 router.patch("/:id", authMiddleware, validId, validNews, newsController.update);
